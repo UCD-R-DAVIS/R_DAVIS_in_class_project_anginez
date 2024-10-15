@@ -80,3 +80,48 @@ animals %in% c("fish", "insect", "bird", "amphibian", "mammal")
 # shows which are present in this larger dataset 
 # using == instead is PAIRWISE MATCHING, whereas %in% doesn't care about location/order 
 # bucket-to-bucket vs. pair-to-pair
+
+### lists ----
+list(4, 6, "dog")
+# each one of the values is its own vector pretty much, doesn't matter about organization; sometimes results can be in list form 
+# junk drawer 
+
+### dataframes ----
+df <- data.frame(letters) #data.frame creates a dataframe 
+dim(df) # maybe more helpful for dataframes, gives rows and columns 
+
+# transposing 
+t(df) # transposes into a matrix 
+as.data.frame(t(df)) # turns "long" dataframe to a "wide" dataframe 
+ncol(df)
+# length gives # of columns
+
+### factors ----
+animals <- factor(c("rat", "cat", "cat", "rat"))
+# 2 levels, alphabetically organized by default(?)
+
+class(animals)
+levels(animals)
+# prints the levels associated with the factor
+nlevels(animals)
+# gives the number of levels 
+
+animals <- factor(animals, levels = c("rat", "cat"))
+animals
+# reorders the levels
+
+year <- factor(c(1978,1988,1950,1979))
+class(year)
+as.numeric(year)
+# converts this to numbers, which equate to numerical order based on level order 1-4
+levels(year)
+
+as.numeric(animals)
+# numbers represent the order of LEVELS, not the string values 
+as.character(animals)
+as.character(year)
+# returns the string 
+
+year <- as.numeric(as.character(year))
+year
+# won't preserve any customization of level order with this 
