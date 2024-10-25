@@ -39,3 +39,4 @@ surveys %>%
     TRUE ~ "medium"
   )) %>% 
   head()
+ 
