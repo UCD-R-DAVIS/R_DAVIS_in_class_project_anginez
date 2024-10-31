@@ -38,13 +38,22 @@ library(tidyverse)
 tyler_averages %>% 
   pivot_wider(id_cols = 'form',
               names_from = 'pace',
-              values_from = 'mean_steps')
+              values_from = 'mean_steps') %>%
+  
+tyler_averages$pace <- factor(tyler_averages$pace, c("slow", 'medium', 'fast'))
+
 
 ### summarize the minimum, mean, median, and maximum steps per minute results for all laps run between january-june 2024 and july-october 2024
 tyler_stats <- tyler_data %>% 
   filter(year == 2024 & month == 1:10)
 tyler_stats <- tyler_stats %>%
   mutate(period = case_when(
-    month >= 1 & month <= 6 ~ "Jan-Jun 2024",
-    month >= 7 & month <= 10 ~~ "Jul-Oct 2024"
-  ))
+    month >= 1 & month <= 6  ~ "Jan-Jun 2024",
+    TRUE ~ "Jul-Oct 2024"
+  )) %>%
+  group_by(period) %>% 
+  summarise(minimum = min(steps_per_minute),
+            maximum = max(steps_per_minute),
+            med = median(steps_per_minute),
+            mean = mean(steps_per_minute))
+
